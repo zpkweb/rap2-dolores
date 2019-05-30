@@ -6,6 +6,8 @@ import * as ModuleAction from '../actions/module'
 import * as ModuleEffects from './effects/module'
 import * as RepositoryAction from '../actions/repository'
 import * as RepositoryEffects from './effects/repository'
+import * as CrapApiAction from '../actions/crapApi'
+import * as CrapApiEffects from './effects/crapApi'
 
 export default {
   reducers: {
@@ -322,7 +324,26 @@ export default {
         default:
           return state
       }
-    }
+    },
+    crapApi (state = {
+      data: [],
+      fetching: false
+    }, action) {
+      switch (action.type) {
+        case CrapApiAction.fetchCrapApiMenu().type:
+          return {
+            data: [...state.data],
+            fetching: true
+          }
+        case CrapApiAction.fetchCrapApiMenuSucceeded().type:
+            return {
+              data: action.crapApiMenu.data.subMenu,
+              fetching: false
+            }
+        default:
+          return state
+      }
+    },
   },
   sagas: {
     [RepositoryAction.addRepository().type]: RepositoryEffects.addRepository,
@@ -332,6 +353,7 @@ export default {
     [RepositoryAction.fetchRepository().type]: RepositoryEffects.fetchRepository,
     [RepositoryAction.fetchRepositoryCount().type]: RepositoryEffects.fetchRepositoryCount,
     [RepositoryAction.fetchRepositoryList().type]: RepositoryEffects.fetchRepositoryList,
+    [CrapApiAction.fetchCrapApiMenu().type]: CrapApiEffects.fetchCrapApiMenu,
 
     [RepositoryAction.importRepository().type]: RepositoryEffects.importRepository,
 
@@ -346,10 +368,13 @@ export default {
   listeners: {
     '/repository': [RepositoryAction.fetchOwnedRepositoryList, RepositoryAction.fetchJoinedRepositoryList],
     '/repository/joined': [RepositoryAction.fetchOwnedRepositoryList, RepositoryAction.fetchJoinedRepositoryList],
-    '/repository/all': [RepositoryAction.fetchRepositoryList],
+    '/repository/all': [RepositoryAction.fetchRepositoryList, CrapApiAction.fetchCrapApiMenu],
+
     '/repository/tester': [RepositoryAction.fetchRepository],
     '/repository/checker': [RepositoryAction.fetchRepository],
     '/organization/repository': [RepositoryAction.fetchRepositoryList],
-    '/organization/repository/editor': [RepositoryAction.fetchRepository]
+    '/organization/repository/editor': [RepositoryAction.fetchRepository],
+
+
   }
 }
