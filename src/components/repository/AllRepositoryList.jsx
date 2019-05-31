@@ -23,7 +23,7 @@ class AllRepositoryList extends Component {
           <div className='RepositoryList row'>
             {crapApi.data.map(crapapi =>
               <div key={crapapi.id} className='col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3'>
-                <CrapApi crapapi={crapapi} editor='/repository/editor' />
+                <CrapApi crapapi={crapapi} editor='/repository/editor/crapapi' />
               </div>
             )}
           </div>

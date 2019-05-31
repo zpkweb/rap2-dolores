@@ -4,7 +4,7 @@ export const fetchCrapApiMenuSucceeded = (crapApiMenu) => ({ type: 'CRAPAPI_MENU
 export const fetchCrapApiMenuFailed = (error) => ({ type: 'CRAPAPI_MENU_FAILED', error })
 
 // 获取crapapi模块
-export const fetchCrapApiModules = () => ({ type: 'CRAPAPI_MODULES' })
+export const fetchCrapApiModules = (params) => ({ type: 'CRAPAPI_MODULES', params })
 export const fetchCrapApiModulesSucceeded = (CrapApiModules) => ({ type: 'CRAPAPI_MODULES_SUCCEEDED', CrapApiModules })
 export const fetchCrapApiModulesFailed = (error) => ({ type: 'CRAPAPI_MODULES_FAILED', error })
 

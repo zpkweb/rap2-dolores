@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import { connect, PropTypes, Link, replace, moment } from '../../family'
-import { RModal } from '../utils'
-import { serve } from '../../relatives/services/constant'
-import RepositoryForm from './RepositoryForm'
-import { GoRepo, GoPencil, GoPlug, GoTrashcan, GoPerson, GoOrganization } from 'react-icons/lib/go'
+import { GoRepo, GoOrganization } from 'react-icons/lib/go'
 // DONE 2.1 iconfont => octicons
 
 class Repository extends Component {
@@ -17,14 +14,13 @@ class Repository extends Component {
     this.state = { update: false }
   }
   render () {
-    let { location } = this.context
-    let { auth, crapapi, editor } = this.props
+    let { crapapi, editor } = this.props
     return (
       <div className='Repository card'>
         <div className='card-block'>
           <div className='name'>
             <GoRepo className='mr6 color-9' />
-            <Link to={`${editor}?id=${crapapi.id}`}>{crapapi.menuName}</Link>
+            <Link to={`${editor}?modulesId=${crapapi.modulesId}&password=www.zbgedu.com&code=1111&current=1`}>{crapapi.menuName}</Link>
           </div>
           <div className='desc'>
             {crapapi.menuName}

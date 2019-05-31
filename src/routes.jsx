@@ -102,6 +102,12 @@ const BookDetail = (props) => (
   </Bundle>
 )
 
+const CrapApiEditor = (props) => (
+  <Bundle load={cb => require.ensure([], require => cb(require('./components/editor/CrapApiEditor')))}>
+    {CustomComponent => CustomComponent ? <CustomComponent {...props} /> : null}
+  </Bundle>
+)
+
 const Routes = ({ match, location }, { store }) => {
   let auth = store.getState().auth
   if (!auth) return <Spin /> // 渲染整站开屏动画，已经在 src/index 中实现。这里的代码用于支持没有接入 SSO 的情况。
@@ -132,6 +138,7 @@ const Routes = ({ match, location }, { store }) => {
               <Route exact path='/repository/joined/create' component={JoinedRepositoryListWithCreateForm} />
               <Route exact path='/repository/all' component={AllRepositoryList} />
               <Route exact path='/repository/editor' component={RepositoryEditor} />
+              <Route exact path='/repository/editor/crapapi' component={CrapApiEditor} />
               <Route exact path='/repository/tester' component={RepositoryTester} />
               <Route exact path='/repository/checker' component={RepositoryChecker} />
               <Route component={NoMatch} />

@@ -336,10 +336,44 @@ export default {
             fetching: true
           }
         case CrapApiAction.fetchCrapApiMenuSucceeded().type:
-            return {
-              data: action.crapApiMenu.data.subMenu,
-              fetching: false
-            }
+          return {
+            data: action.crapApiMenu.data.subMenu,
+            fetching: false
+          }
+        case CrapApiAction.fetchCrapApiMenuFailed().type:
+          return {
+            data: [],
+            fetching: false
+          }
+        default:
+          return state
+      }
+    },
+    crapApiModules (state = {
+      modules: [],
+      fetching: false
+    }, action) {
+      switch (action.type) {
+        case CrapApiAction.fetchCrapApiModules().type:
+          return {
+            modules: [...state.modules],
+            fetching: true
+          }
+        case CrapApiAction.fetchCrapApiModulesSucceeded().type:
+          return {
+            // ...action.CrapApiModules,
+            modulesInfo: action.CrapApiModules.modules.others.module,
+            modules: action.CrapApiModules.modules.data,
+            interfaces: action.CrapApiModules.interfaces.data,
+            detail: action.CrapApiModules.detail.data,
+            fetching: false
+          }
+        case CrapApiAction.fetchCrapApiModulesFailed().type:
+          return {
+            error: action.error,
+            modules: [],
+            fetching: false
+          }
         default:
           return state
       }
@@ -353,7 +387,6 @@ export default {
     [RepositoryAction.fetchRepository().type]: RepositoryEffects.fetchRepository,
     [RepositoryAction.fetchRepositoryCount().type]: RepositoryEffects.fetchRepositoryCount,
     [RepositoryAction.fetchRepositoryList().type]: RepositoryEffects.fetchRepositoryList,
-    [CrapApiAction.fetchCrapApiMenu().type]: CrapApiEffects.fetchCrapApiMenu,
 
     [RepositoryAction.importRepository().type]: RepositoryEffects.importRepository,
 
@@ -363,18 +396,18 @@ export default {
     [InterfaceAction.fetchInterfaceCount().type]: InterfaceEffects.fetchInterfaceCount,
     [InterfaceAction.sortInterfaceList().type]: InterfaceEffects.sortInterfaceList,
     [ModuleAction.sortModuleList().type]: ModuleEffects.sortModuleList,
-    [PropertyAction.sortPropertyList().type]: PropertyEffects.sortPropertyList
+    [PropertyAction.sortPropertyList().type]: PropertyEffects.sortPropertyList,
+
+    [CrapApiAction.fetchCrapApiMenu().type]: CrapApiEffects.fetchCrapApiMenu,
+    [CrapApiAction.fetchCrapApiModules().type]: CrapApiEffects.fetchCrapApiModules,
   },
   listeners: {
     '/repository': [RepositoryAction.fetchOwnedRepositoryList, RepositoryAction.fetchJoinedRepositoryList],
     '/repository/joined': [RepositoryAction.fetchOwnedRepositoryList, RepositoryAction.fetchJoinedRepositoryList],
     '/repository/all': [RepositoryAction.fetchRepositoryList, CrapApiAction.fetchCrapApiMenu],
-
     '/repository/tester': [RepositoryAction.fetchRepository],
     '/repository/checker': [RepositoryAction.fetchRepository],
     '/organization/repository': [RepositoryAction.fetchRepositoryList],
     '/organization/repository/editor': [RepositoryAction.fetchRepository],
-
-
   }
 }
