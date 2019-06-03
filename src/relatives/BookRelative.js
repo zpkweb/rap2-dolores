@@ -12,10 +12,10 @@ export default {
           return state
       }
     },
-    bookList (state = { data: {list:[],page:{},categorys:[]} }, action) {
+    bookList (state = { data: [], others: {category:"", categorys: []}, page: {} }, action) {
       switch (action.type) {
         case BookAction.fetchBookListSucceeded().type:
-          return { data: action.bookList.data }
+          return action.bookList
         default:
           return state
       }
@@ -39,13 +39,11 @@ export default {
       }
     },
     * [BookAction.fetchBookList().type] (action) {
-      const {
-        category
-      } = action.params
       try {
-        const list = yield call(BookService.fetchBookList, {category})
+        const list = yield call(BookService.fetchBookList, action.params)
         yield put(BookAction.fetchBookListSucceeded(list))
       } catch (e) {
+        console.log(3333,e)
         yield put(BookAction.fetchBookListFailed(e.message))
       }
     },

@@ -15,9 +15,10 @@ export default {
   fetchBookList ({
     tid = 'ARTICLE',
     category = '',
-    visitCode = ''
+    visitCode = '',
+    cursor = ''
   } = {}) {
-    return fetch(`${serve}/book/list?type=${tid}&category=${category}&visitCode=${visitCode}`)
+    return fetch(`${serve}/book/list?type=${tid}&category=${category}&currentPage=${cursor}`)
       .then(res => res.json())
     // .then(json => json.data)
   },

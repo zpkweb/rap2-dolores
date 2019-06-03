@@ -8,13 +8,9 @@ import './List.css'
 class BookList extends Component {
   constructor (props) {
     super(props)
-    this.state = {
-      update: false,
-      exportPostman: false
-    }
   }
   render () {
-    let {  location, bookList } = this.props
+    let {  location, bookList } = this.props;
     return (
       <section className='UserList'>
     <div className='header'>
@@ -22,20 +18,20 @@ class BookList extends Component {
     </div>
     <nav className='toolbar clearfix'>
       <div className="btn-group" role="group" aria-label="Basic example">
-        { bookList.data.categorys.map(item =>
-          <button key={item} type="button" className={`btn btn-secondary ${ item === bookList.data.category ? "active": ""}`}><Link to={`/book/list?category=${item}`} className="btn ">{item}</Link></button>
+        { bookList.others.categorys.map(item =>
+          <button key={item} type="button" className={`btn btn-secondary ${ item === bookList.others.category ? "active": ""}`}><Link to={`/book/list?category=${item}`} className="btn ">{item}</Link></button>
         )}
       </div>
     </nav>
     <div className='body'>
       <div className="list-group">
-        { bookList.data.list.map(item =>
+        { bookList.data.map(item =>
           <Link key={item.id} to={`/book/detail?id=${item.id}`} className="list-group-item list-group-item-action">{item.name}</Link>
         )}
       </div>
     </div>
     <div className='footer'>
-      <Pagination location={location} calculated={bookList.data.page} />
+      <Pagination location={location} calculated={bookList.page} />
     </div>
   </section>
     )
