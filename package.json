@@ -35,7 +35,7 @@
     "lodash": "4.17.10",
     "mockjs": "1.0.1-beta3",
     "moment": "2.22.2",
-    "node-fetch": "2.1.2",
+    "node-fetch": "2.6.1",
     "normalizr": "^3.2.4",
     "nprogress": "0.2.0",
     "parsleyjs": "^2.7.2",
